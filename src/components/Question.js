@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { formatDate } from "../utils/helpers";
-import TiArrowBackOutline from "react-icons/lib/ti/arrow-back-outline";
-import TiHeartOutline from "react-icons/lib/ti/heart-outline";
-import TiHeartFullOutline from "react-icons/lib/ti/heart-full-outline";
 import { Link, withRouter } from "react-router-dom";
 
 class Question extends Component {
@@ -25,7 +22,7 @@ class Question extends Component {
     const { id, timestamp, optionOne, optionTwo } = question;
 
     return (
-      <Link to={`/question/${id}/` + (answered ? 'pollAnswered' : 'pollUnanswered') } className="question">
+      <Link to={`/questions/${id}/` + (answered ? 'pollAnswered' : 'pollUnanswered') } className="question">
         {/* <img
           src={avatar}
           alt={`Avatar of ${name}`}

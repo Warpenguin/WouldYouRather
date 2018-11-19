@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Question from "./Question";
 
 class LeaderBoard extends Component {
   render() {

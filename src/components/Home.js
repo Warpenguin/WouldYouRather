@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Question from "./Question";
-import authedUser from "../reducers/authedUser";
 
 class Home extends Component {
   state = {
@@ -52,15 +51,15 @@ function mapStateToProps({ questions, authedUser }) {
     answeredQuestionIds: Object.keys(questions)
       .filter(
         q =>
-          questions[q].optionOne.votes.indexOf(authedUser) != -1 ||
-          questions[q].optionTwo.votes.indexOf(authedUser) != -1
+          questions[q].optionOne.votes.indexOf(authedUser) !== -1 ||
+          questions[q].optionTwo.votes.indexOf(authedUser) !== -1
       )
       .sort((a, b) => questions[b].timestamp - questions[a].timestamp),
     unAnsweredQuestionIds: Object.keys(questions)
       .filter(
         q =>
-          questions[q].optionOne.votes.indexOf(authedUser) == -1 &&
-          questions[q].optionTwo.votes.indexOf(authedUser) == -1
+          questions[q].optionOne.votes.indexOf(authedUser) === -1 &&
+          questions[q].optionTwo.votes.indexOf(authedUser) === -1
       )
       .sort((a, b) => questions[b].timestamp - questions[a].timestamp)
   };

@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Question from "./Question";
 import { handleAddQuestionAnswer } from "../actions/questions";
-import NewQuestion from "./NewQuestion";
 
 class PollUnanswered extends Component {
   handleChange = e => {
@@ -10,8 +8,8 @@ class PollUnanswered extends Component {
   };
 
   render() {
-    const { question, authedUser, author, dispatch } = this.props;
-    const { id, timestamp, optionOne, optionTwo } = question;
+    const { question, author, dispatch } = this.props;
+    const { id } = question;
 
     return (
       <div>
@@ -27,7 +25,7 @@ class PollUnanswered extends Component {
           className="replying-to"
           onClick={e => {
             dispatch(handleAddQuestionAnswer(id, this.state.value));
-            this.props.history.push(`/question/${id}/pollAnswered`);
+            this.props.history.push(`/questions/${id}/pollAnswered`);
           }}
         >
           Submit

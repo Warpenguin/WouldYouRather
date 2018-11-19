@@ -42,14 +42,14 @@ class App extends Component {
               <div>
                 <Route path="/" exact component={Home} />
                 <Route
-                  path="/question/:id/pollAnswered"
+                  path="/questions/:id/pollAnswered"
                   component={PollAnswered}
                 />
                 <Route
-                  path="/question/:id/pollUnanswered"
+                  path="/questions/:id/pollUnanswered"
                   component={PollUnanswered}
                 />
-                <Route path="/new" component={NewQuestion} />
+                <Route path="/add" component={NewQuestion} />
                 <Route path="/leaderboard" component={LeaderBoard} />
               </div>
             )}

@@ -1,47 +1,48 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Question from "./Question";
+import { Menu, Segment } from "semantic-ui-react";
 
 class Home extends Component {
   state = {
     answered: false
   };
   render() {
+    const { answered } = this.state;
+
     var questionIds = this.state.answered
       ? this.props.answeredQuestionIds
       : this.props.unAnsweredQuestionIds;
     return (
-      <div>
-        <nav className="nav">
-          <ul>
-            <li
+      <Segment>
+        <div>
+          <Menu widths={2}>
+            <Menu.Item
+              name="Unanswered Questions"
+              active={!answered}
               onClick={e =>
                 this.setState({
                   answered: false
                 })
               }
-            >
-              Unanswered Questions
-            </li>
-            <li
+            />
+            <Menu.Item
+              name="Answered Questions"
+              active={answered}
               onClick={e =>
                 this.setState({
                   answered: true
                 })
               }
-            >
-              Answered Questions
-            </li>
-          </ul>
-          <ul className="dashboard-list">
-            {questionIds.map(id => (
-              <li key={id}>
-                <Question id={id} answered={this.state.answered} />
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
+            />
+          </Menu>
+        </div>
+        <ul className="dashboard-list">
+          {questionIds.map(id => (
+            <Question key={id} id={id} answered={this.state.answered} />
+          ))}
+        </ul>
+      </Segment>
     );
   }
 }

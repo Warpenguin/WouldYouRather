@@ -1,53 +1,39 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { formatDate } from "../utils/helpers";
 import { Link, withRouter } from "react-router-dom";
+import {
+  Card,
+  Button,
+  Segment,
+  Image,
+} from "semantic-ui-react";
 
 class Question extends Component {
-  toAnsweredPoll = (e, id) => {
-    e.preventDefault();
-    this.props.history.push(`/question/${id}/pollAnswered`);
-  };
-  toUnansweredPoll = (e, id) => {
-    e.preventDefault();
-    this.props.history.push(`/question/${id}/pollUnanswered`);
-  };
   render() {
-    const { question, author, answered } = this.props;
+    const { question, author } = this.props;
 
     if (question === null) {
-      return <p>This Question doesn't existd</p>;
+      return <p>This Question doesn't exist</p>;
     }
 
-    const { id, timestamp, optionOne, optionTwo } = question;
+    const { id, optionOne } = question;
 
     return (
-      <Link to={`/questions/${id}/` + (answered ? 'pollAnswered' : 'pollUnanswered') } className="question">
-        {/* <img
-          src={avatar}
-          alt={`Avatar of ${name}`}
-          className='avatar'
-        /> */}
-        <div className="question-info">
-          <div>
-            <div>{formatDate(timestamp)}</div>
-            {author && (
-              <button
-                className="replying-to"
-                onClick={e =>
-                  answered
-                    ? this.toAnsweredPoll(e, id)
-                    : this.toUnansweredPoll(e, id)
-                }
-              >
-                View Poll
-              </button>
-            )}
-            <p>{optionOne.text}</p>
-            <p>{optionTwo.text}</p>
-          </div>
-        </div>
-      </Link>
+      <Card>
+        <Card.Content>
+          <Card.Header>
+            <div>
+              <Image src={author.avatarURL} avatar />
+              <span>{author.name} asks</span>
+            </div>
+          </Card.Header>
+          <Segment basic>Would you rather</Segment>
+          <Segment basic>..{optionOne.text.substring(0, 16)}..</Segment>
+          <Link to={`/questions/${id}`}>
+            <Button color="teal">View Poll</Button>
+          </Link>
+        </Card.Content>
+      </Card>
     );
   }
 }

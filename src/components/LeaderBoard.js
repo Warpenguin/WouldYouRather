@@ -1,24 +1,61 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Grid, Segment, Header, Image } from "semantic-ui-react";
+
+const colors = ["yellow", "grey", "brown"];
 
 class LeaderBoard extends Component {
   render() {
     const { leaders, users } = this.props;
+
+    var sorted = Object.keys(leaders).sort(
+      (a, b) =>
+        leaders[b].answered +
+        leaders[b].asked -
+        (leaders[a].answered + leaders[a].asked)
+    );
+
     return (
-      <div>
-        <ul className="dashboard-list">
-          {Object.keys(leaders).map(id => {
+      <Grid
+        textAlign="center"
+        style={{ height: "100%" }}
+        verticalAlign="middle"
+      >
+        <Grid.Column style={{ maxWidth: 550 }}>
+          {sorted.map((id, index) => {
             const { answered, asked } = leaders[id];
             const total = answered + asked;
             return (
-              <li key={id}>
-                {users[id].name} answered: {answered}, asked:{asked}, total:
-                {total}
-              </li>
+              <Segment
+                key={id}
+                color={index < 3 ? colors[index] : "transparent"}
+              >
+                <Grid>
+                  <Grid.Row key={id} columns={3}>
+                    <Grid.Column>
+                      <Image height={100} src={users[id].avatarURL} />
+                    </Grid.Column>
+                    <Grid.Column>
+                      <Header as="h3">{users[id].name}</Header>
+                      <div>
+                        <span>Answered questions: {answered}</span>
+                      </div>
+                      <div>
+                        <span>Created questions: {asked}</span>
+                      </div>
+                    </Grid.Column>
+                    <Grid.Column>
+                      <Header as="h4" color="teal" textAlign="right">
+                        Score: {total}
+                      </Header>
+                    </Grid.Column>
+                  </Grid.Row>
+                </Grid>
+              </Segment>
             );
           })}
-        </ul>
-      </div>
+        </Grid.Column>
+      </Grid>
     );
   }
 }
